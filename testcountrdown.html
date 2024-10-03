@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circular Countdown with Sticky Banner</title>
+  <style>
+    :root {
+      --circle-stroke-color: #1DC3EB; /* Global stroke color */
+      --circle-background-fill: rgba(4, 61, 93, 0.75); /* Background fill color for circles */
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Section for countdown with background image */
+    #countdown-section {
+      background: url('https://media.hms-networks.com/image/upload/v1727948503/Graphics/Ewon/Do_not_use_-_Step_up_Food_factory.jpg') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: #fff;
+    }
+
+    .wrap {
+      display: flex;
+      justify-content: space-between;
+      width: 600px;
+      background-color: transparent;
+    }
+
+    .countdown {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown__chart {
+      position: relative;
+      width: 136px;
+      height: 136px;
+    }
+
+    .countdown__chart svg {
+      margin: 0 auto;
+    }
+
+    .countdown__chart svg circle {
+      transition: stroke-dashoffset 0.3s linear;
+    }
+
+    .countdown__background-circle {
+      fill: var(--circle-background-fill); /* Background fill */
+    }
+
+    .countdown__time {
+      position: absolute;
+      width: 136px;
+      height: 136px;
+      top: 0;
+      text-align: center;
+      line-height: 50px;
+      left: 0;
+      font-size: 36px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .countdown__label {
+      font-size: 14px;
+      color: #fff;
+      text-transform: uppercase;
+      margin-top: -10px; /* Adjusts the spacing between number and label */
+    }
+
+    /* Sticky banner styling */
+    #sticky-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #043D5D;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 1.5em;
+      display: none; /* Initially hidden */
+      z-index: 9999;
+    }
+
+    /* Normal content below the countdown section */
+    #content {
+      height: 2000px;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Countdown Section with background image and circular countdowns -->
+  <section id="countdown-section">
+    <div class="wrap">
+      <div class="countdown js-countdown" data-date="12/31/2024">
+        <div class="countdown__chart" data-countdown="days">
+          <svg viewBox="0 0 136 136">
+            <!-- Background circle -->
+            <circle class="countdown__background-circle" cx="68" cy="68" r="65"></circle>
+            <!-- Animated stroke circle -->
+            <circle class="js-circle-countdown" stroke="var(--circle-stroke-color)" fill="transparent" cx="68" cy="68" r="65" transform="translate(0, 136) rotate(-90)" stroke-width="6" stroke-dasharray="408.2"></circle>
+          </svg>
+          <div class="countdown__time" data-value="days">
+            <span class="countdown__number">00</span>
+            <span class="countdown__label">Days</span>
+          </div>
+        </div>
+      </div>
+      <div class="countdown js-countdown">
+        <div class="countdown__chart" data-countdown="hours">
+          <svg viewBox="0 0 136 136">
+            <!-- Background circle -->
+            <circle class="countdown__background-circle" cx="68" cy="68" r="65"></circle>
+            <!-- Animated stroke circle -->
+            <circle class="js-circle-countdown" stroke="var(--circle-stroke-color)" fill="transparent" cx="68" cy="68" r="65" transform="translate(0, 136) rotate(-90)" stroke-width="6" stroke-dasharray="408.2"></circle>
+          </svg>
+          <div class="countdown__time" data-value="hours">
+            <span class="countdown__number">00</span>
+            <span class="countdown__label">Hours</span>
+          </div>
+        </div>
+      </div>
+      <div class="countdown js-countdown">
+        <div class="countdown__chart" data-countdown="minutes">
+          <svg viewBox="0 0 136 136">
+            <!-- Background circle -->
+            <circle class="countdown__background-circle" cx="68" cy="68" r="65"></circle>
+            <!-- Animated stroke circle -->
+            <circle class="js-circle-countdown" stroke="var(--circle-stroke-color)" fill="transparent" cx="68" cy="68" r="65" transform="translate(0, 136) rotate(-90)" stroke-width="6" stroke-dasharray="408.2"></circle>
+          </svg>
+          <div class="countdown__time" data-value="minutes">
+            <span class="countdown__number">00</span>
+            <span class="countdown__label">Minutes</span>
+          </div>
+        </div>
+      </div>
+      <div class="countdown js-countdown">
+        <div class="countdown__chart" data-countdown="seconds">
+          <svg viewBox="0 0 136 136">
+            <!-- Background circle -->
+            <circle class="countdown__background-circle" cx="68" cy="68" r="65"></circle>
+            <!-- Animated stroke circle -->
+            <circle class="js-circle-countdown" stroke="var(--circle-stroke-color)" fill="transparent" cx="68" cy="68" r="65" transform="translate(0, 136) rotate(-90)" stroke-width="6" stroke-dasharray="408.2"></circle>
+          </svg>
+          <div class="countdown__time" data-value="seconds">
+            <span class="countdown__number">00</span>
+            <span class="countdown__label">Seconds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky countdown banner -->
+  <div id="sticky-banner">
+    <span id="banner-days">00</span> Days 
+    <span id="banner-hours">00</span> Hours 
+    <span id="banner-minutes">00</span> Minutes 
+    <span id="banner-seconds">00</span> Seconds
+  </div>
+
+  <!-- Normal content after the countdown section -->
+  <div id="content">
+    <h1>Welcome to the page!</h1>
+    <p>Scroll down to see the sticky countdown banner at the top of the page.</p>
+    <p>The countdown timer will remain visible as you scroll.</p>
+  </div>
+
+  <script>
+    // Countdown logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const countdown = document.querySelectorAll('.js-countdown');
+      const targetDate = new Date('December 31, 2024 00:00:00').getTime();
+      const stickyBanner = document.getElementById('sticky-banner');
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const timeLeft = targetDate - now;
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        countdown.forEach(function(el) {
+          const countdownType = el.querySelector('.countdown__chart').dataset.countdown;
+          const circle = el.querySelector('.js-circle-countdown');
+
+          let maxValue, currentValue;
+          switch (countdownType) {
+            case 'days':
+              maxValue = 365;
+              currentValue = days;
+              break;
+            case 'hours':
+              maxValue = 24;
+              currentValue = hours;
+              break;
+            case 'minutes':
+              maxValue = 60;
+              currentValue = minutes;
+              break;
+            case 'seconds':
+              maxValue = 60;
+              currentValue = seconds;
+              break;
+          }
+
+          const strokeDashoffset = 408.2 - (408.2 * currentValue) / maxValue;
+          circle.style.strokeDashoffset = strokeDashoffset;
+
+          // Update the number and label inside circles
+          el.querySelector('.countdown__number').textContent = currentValue < 10 ? `0${currentValue}` : currentValue;
+        });
+
+        // Update the sticky banner
+        document.getElementById('banner-days').textContent = days < 10 ? `0${days}` : days;
+        document.getElementById('banner-hours').textContent = hours < 10 ? `0${hours}` : hours;
+        document.getElementById('banner-minutes').textContent = minutes < 10 ? `0${minutes}` : minutes;
+        document.getElementById('banner-seconds').textContent = seconds < 10 ? `0${seconds}` : seconds;
+      }
+
+      // Update countdown every second
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // Sticky banner functionality
+      window.addEventListener('scroll', function () {
+        const countdownSection = document.getElementById('countdown-section');
+
+        if (window.scrollY > countdownSection.offsetHeight) {
+          stickyBanner.style.display = 'block'; // Show sticky banner
+        } else {
+          stickyBanner.style.display = 'none';  // Hide sticky banner
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
